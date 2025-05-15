@@ -1,0 +1,298 @@
+---
+const galleryImages = [
+  {
+    url: "https://images.pexels.com/photos/2598638/pexels-photo-2598638.jpeg",
+    category: "Rooms",
+    title: "Premium Suite"
+  },
+  {
+    url: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg",
+    category: "Rooms",
+    title: "Deluxe Ocean View"
+  },
+  {
+    url: "https://images.pexels.com/photos/6195090/pexels-photo-6195090.jpeg",
+    category: "Restaurant",
+    title: "Fine Dining Experience"
+  },
+  {
+    url: "https://images.pexels.com/photos/3225531/pexels-photo-3225531.jpeg",
+    category: "Pool",
+    title: "Poolside Bar"
+  },
+  {
+    url: "https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg",
+    category: "Rooms",
+    title: "Luxury Bathroom"
+  },
+  {
+    url: "https://images.pexels.com/photos/3201763/pexels-photo-3201763.jpeg",
+    category: "Restaurant",
+    title: "Gourmet Cuisine"
+  },
+  {
+    url: "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg",
+    category: "Resort",
+    title: "Resort Exterior"
+  },
+  {
+    url: "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg",
+    category: "Pool",
+    title: "Infinity Pool"
+  }
+];
+---
+
+<section id="gallery" class="section-padding">
+  <div class="container">
+    <div class="row text-center mb-5">
+      <div class="col-lg-8 mx-auto">
+        <h2 class="section-title mx-auto">Resort Gallery</h2>
+        <p class="lead">Experience the beauty and luxury of our resort through these captivating images</p>
+      </div>
+    </div>
+
+    <!-- Gallery Filter -->
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <div class="gallery-filter">
+          <button class="btn btn-filter active" data-filter="all">All</button>
+          <button class="btn btn-filter" data-filter="Rooms">Rooms</button>
+          <button class="btn btn-filter" data-filter="Restaurant">Restaurant</button>
+          <button class="btn btn-filter" data-filter="Pool">Pool</button>
+          <button class="btn btn-filter" data-filter="Resort">Resort</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery Images -->
+    <div class="row gallery-container">
+      {galleryImages.map((image, index) => (
+        <div class="col-md-6 col-lg-3 gallery-item mb-4" data-category={image.category} data-aos="fade-up" data-aos-delay={index * 100}>
+          <div class="card gallery-card h-100">
+            <div class="gallery-image">
+              <img src={image.url} alt={image.title} class="img-fluid w-100">
+              <div class="gallery-overlay">
+                <a href={image.url} class="gallery-link" title={image.title}>
+                  <i class="fas fa-search-plus"></i>
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <span class="badge bg-primary mb-2">{image.category}</span>
+              <h5 class="card-title">{image.title}</h5>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery-filter {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: var(--spacing-md);
+    justify-content: center;
+  }
+
+  .btn-filter {
+    background: transparent;
+    color: var(--text-dark);
+    border: 1px solid #dee2e6;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-filter:hover, .btn-filter.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+  }
+
+  .gallery-image {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+  }
+
+  .gallery-image img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .gallery-card:hover .gallery-image img {
+    transform: scale(1.1);
+  }
+
+  .gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 76, 129, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .gallery-card:hover .gallery-overlay {
+    opacity: 1;
+  }
+
+  .gallery-link {
+    color: white;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+  }
+
+  .gallery-link:hover {
+    background: rgba(255, 255, 255, 0.4);
+    color: white;
+  }
+
+  .hide {
+    display: none;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Gallery filtering
+    const filterButtons = document.querySelectorAll('.btn-filter');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        const filterValue = this.getAttribute('data-filter');
+        
+        galleryItems.forEach(item => {
+          if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+            item.classList.remove('hide');
+          } else {
+            item.classList.add('hide');
+          }
+        });
+      });
+    });
+
+    // Simple Lightbox initialization
+    const galleryLinks = document.querySelectorAll('.gallery-link');
+    
+    galleryLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const imgSrc = this.getAttribute('href');
+        const imgTitle = this.getAttribute('title');
+        
+        // Create lightbox elements
+        const lightbox = document.createElement('div');
+        lightbox.className = 'lightbox';
+        
+        const lightboxContent = document.createElement('div');
+        lightboxContent.className = 'lightbox-content';
+        
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.alt = imgTitle;
+        
+        const caption = document.createElement('p');
+        caption.className = 'lightbox-caption';
+        caption.textContent = imgTitle;
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'lightbox-close';
+        closeBtn.innerHTML = '&times;';
+        
+        // Append elements
+        lightboxContent.appendChild(img);
+        lightboxContent.appendChild(caption);
+        lightboxContent.appendChild(closeBtn);
+        lightbox.appendChild(lightboxContent);
+        document.body.appendChild(lightbox);
+        
+        // Add no-scroll to body
+        document.body.style.overflow = 'hidden';
+        
+        // Close lightbox when clicking close button or outside the image
+        lightbox.addEventListener('click', function(e) {
+          if (e.target === lightbox || e.target === closeBtn) {
+            document.body.removeChild(lightbox);
+            document.body.style.overflow = '';
+          }
+        });
+      });
+    });
+  });
+</script>
+
+<style is:global>
+  /* Lightbox styles */
+  .lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+  }
+
+  .lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+  }
+
+  .lightbox-content img {
+    max-height: 80vh;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .lightbox-caption {
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding: 10px 0;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+  }
+</style>

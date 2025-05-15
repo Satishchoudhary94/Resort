@@ -1,0 +1,67 @@
+---
+---
+
+<nav class="navbar navbar-expand-lg fixed-top bg-white">
+  <div class="container">
+    <a class="navbar-brand" href="#">Serene Shores</a>
+    <button 
+      class="navbar-toggler" 
+      type="button" 
+      data-bs-toggle="collapse" 
+      data-bs-target="#navbarNav" 
+      aria-controls="navbarNav" 
+      aria-expanded="false" 
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#restaurant">Restaurant</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#pool">Swimming Pool</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#gallery">Gallery</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .navbar {
+    transition: all 0.3s ease;
+    padding: var(--spacing-sm) 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-brand {
+    font-family: var(--heading-font);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+  }
+
+  .nav-link {
+    color: var(--text-dark);
+    font-weight: 500;
+    margin: 0 var(--spacing-xs);
+    transition: color 0.3s ease;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--primary-color);
+  }
+</style>
